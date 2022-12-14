@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Импорты для работы бота
 from telebot.async_telebot import AsyncTeleBot
 from telebot.async_telebot import types

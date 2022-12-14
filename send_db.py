@@ -97,10 +97,3 @@ def execute_query(exec_name, argx = None):
 
 #_connection()
 
-# тест работы
-# res = send_info_to_db(123454353443, 'фантастика', 11)
-# print(res)
-
-#get_flag_to_db(1026283424)
-
-#print(get_info_to_db(1026283424))

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Библа для обращения к кинопоиску
 import requests
 import bot_info

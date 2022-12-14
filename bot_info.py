@@ -1,13 +1,13 @@
-
+# -*- coding: utf-8 -*-
 # Токен бота
 TOKEN = '5862204233:AAG4npNHJbbx36q0qdYh0EE6qNJBYB6L8nA'
 
 # Файл с конфигом для подключения к бд
-#config = 'config.ini'
+config = 'config.ini'
 # Конфиг базы для работы с винды
 #config = 'config_c4_db_debag.ini'
 # Конфиг базы для работы с винды на своем базе
-config = 'config_tel_debag.ini'
+#config = 'config_tel_debag.ini'
 
 # нет 9, 25, 28, 29, 30, 31, 32, 33
 genres_id = {
