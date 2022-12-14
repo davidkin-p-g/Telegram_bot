@@ -8,7 +8,8 @@ import random
 
 
 def get_film_to_genres(genres):
-    while True:
+    a = 0
+    while a > 5:
         try:
             genres_id = bot_info.genres_id[genres]
             rand_page = random.randint(1,2)
@@ -16,7 +17,7 @@ def get_film_to_genres(genres):
             # получение фильмов с выбранным жанром
             url_film_to_genres = f'https://kinopoiskapiunofficial.tech/api/v2.2/films?genres={genres_id}&page={rand_page}'
             # Запрос на API кинопоиска
-            film_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "73fd5400-9098-469a-83e3-5cdf312d5eee"})
+            film_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "0abebfe7-7e3b-41ac-94e6-95525f0b018f"})
             # Получили список фильмов сделав словарем для дальнейшей работы
             body = json.loads(film_list.text)
             films = body['items']
@@ -28,6 +29,7 @@ def get_film_to_genres(genres):
             if images_url != False:
                 return [film["kinopoiskId"], film["nameOriginal"], film["nameRu"], images_url, genres]
         except:
+            a += 1
             print("Error, no film found. Try again")
 
 def get_image_film_to_id(id):
@@ -36,7 +38,7 @@ def get_image_film_to_id(id):
         url_film_to_genres = f'https://kinopoiskapiunofficial.tech/api/v2.2/films/{id}/images'
         # Запрос на API кинопоиска
         # Может не быть картинок поэтому проверяем
-        image_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "73fd5400-9098-469a-83e3-5cdf312d5eee"})
+        image_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "0abebfe7-7e3b-41ac-94e6-95525f0b018f"})
 
         # Получили список картинок сделав словарем для дальнейшей работы
         body = json.loads(image_list.text)
@@ -58,7 +60,7 @@ def get_recommendation_to_genres(genres):
         # получение фильмов с выбранным жанром сортированые по рейтингу
         url_film_to_genres = f'https://kinopoiskapiunofficial.tech/api/v2.2/films?genres={genres_id}&order=RATING&page=1'
         # Запрос на API кинопоиска
-        film_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "73fd5400-9098-469a-83e3-5cdf312d5eee"})
+        film_list = requests.get(url_film_to_genres, headers={'X-API-KEY': "0abebfe7-7e3b-41ac-94e6-95525f0b018f"})
 
         # Получили список фильмов сделав словарем для дальнейшей работы
         body = json.loads(film_list.text)
@@ -70,7 +72,7 @@ def get_recommendation_to_genres(genres):
             id = films[i]['kinopoiskId']
             url_film_to_genres = f'https://kinopoiskapiunofficial.tech/api/v2.2/films/{id}'
             # Запрос на API кинопоиска
-            film = requests.get(url_film_to_genres, headers={'X-API-KEY': "73fd5400-9098-469a-83e3-5cdf312d5eee"})
+            film = requests.get(url_film_to_genres, headers={'X-API-KEY': "0abebfe7-7e3b-41ac-94e6-95525f0b018f"})
             # Сделали словарем
             film = json.loads(film.text)
             # добавили ссылку на фильм в список
