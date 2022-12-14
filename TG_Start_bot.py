@@ -114,6 +114,9 @@ async def send_recommendation(chat_id, user_id):
     data = get_recommendation_to_genres(genres)
     await bot.send_message(chat_id, f'Вам больше подходит жанр {genres}. \n Мы рекомендуем вам посмотреть следующие фильмы: \n {data[0]} \n {data[1]} \n {data[2]} \n {data[3]} \n {data[4]}')
 
-
-# Запускаем бота
-asyncio.run(bot.polling(none_stop=True))
+while True:
+    try:
+        # Запускаем бота
+        asyncio.run(bot.polling(none_stop=True))
+    except:
+        print("Error")
