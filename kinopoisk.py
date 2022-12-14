@@ -24,7 +24,7 @@ def get_film_to_genres(genres):
             # Выбрали случайный фильм из списка
             film = films[rand_item]
             # Получаем картинки с филма
-            images_url = get_image_film_to_id(film["kinopoiskId"])
+            images_url,  = get_image_film_to_id(film["kinopoiskId"])
             # Проверка на наличие картинок
             if images_url != False:
                 return [film["kinopoiskId"], film["nameOriginal"], film["nameRu"], images_url, genres]
@@ -43,12 +43,16 @@ def get_image_film_to_id(id):
         # Получили список картинок сделав словарем для дальнейшей работы
         body = json.loads(image_list.text)
         images = body['items']
-
+        # Добавил описание фильма если есть
+        if body['description'] is not None:
+            description = body['description']
+        else:
+            description = "Нет Описания"
         # Проверим наличие 3 картинок  фильме
         if len(images) < 2:
             return False
         # Сохраним ссыдки
-        images_url = [images[0]['imageUrl'], images[1]['imageUrl'], images[2]['imageUrl']]
+        images_url = [images[0]['imageUrl'], images[1]['imageUrl'], images[2]['imageUrl'], description]
         return images_url
     except:
             print("Error, no images found. Try again")

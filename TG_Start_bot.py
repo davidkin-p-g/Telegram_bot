@@ -35,7 +35,7 @@ async def send_welcome(message):
 @bot.message_handler(commands=['recommendation'])
 async def start_rec(message):
     await bot.reply_to(message, """
-Сейчас вам будет предложены издобраения из фильмов и вам нужно оценить их по 10 бальной шкале.
+Сейчас вам будет предложен ряд фильмов определенного жанра с картинками и вам нужно оценить их по 10 бальной шкале.
 Далее мы определим какие еще фильмы вам могли бы понравиться.
 """)
     # Выбор 1 случайного жанра
@@ -82,8 +82,9 @@ async def send_question(chat_id, genres):
     #data[0] -> id фильма
     #data[1] -> Оригинальное название
     #data[2] -> Название на русском
-    #data[3] -> Набор картинок
+    #data[3] -> Набор картинок и описание
     #data[4] -> Жанр фильма
+    #data[3][3] -> Описание фильма
     # Определим доступные кнопки
     keyboard = types.InlineKeyboardMarkup(); # клавиатура
     # Такая незаурядная callback_data потому что лучше возможности для передачи в обработчик жанра я не придумал
@@ -102,10 +103,13 @@ async def send_question(chat_id, genres):
     question = 'Тебе приглянулся фильм?? Пожалуйста оцени его по 10 бальной шкале. После этого мы попытаемся подстроиться под твой вкус.'
 
     # Отправим сообщение
-    await bot.send_message(chat_id, f'Фильм: {data[1]}({data[2]}), Жанр: {data[4]}')
-    await bot.send_photo(chat_id, photo=data[3][0])
-    await bot.send_photo(chat_id, photo=data[3][1])
-    await bot.send_photo(chat_id, photo=data[3][2])
+    await bot.send_message(chat_id, f'Фильм: {data[1]}({data[2]}), Жанр: {data[4]} \n Описание фильма: {data[3][3]}')
+    try:
+        await bot.send_photo(chat_id, photo=data[3][0])
+        await bot.send_photo(chat_id, photo=data[3][1])
+        await bot.send_photo(chat_id, photo=data[3][2])
+    except:
+        await bot.send_message(chat_id, f'Нет картинок для этого фильма')
     await bot.send_message(chat_id, text=question, reply_markup=keyboard)
 
 # Оправка рекомендации
