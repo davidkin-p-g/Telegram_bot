@@ -9,7 +9,7 @@ import random
 
 def get_film_to_genres(genres):
     a = 0
-    while a < 5:
+    while a < 1:
         try:
             genres_id = bot_info.genres_id[genres]
             rand_page = random.randint(1,2)
@@ -24,13 +24,13 @@ def get_film_to_genres(genres):
             # Выбрали случайный фильм из списка
             film = films[rand_item]
             # Получаем картинки с филма
-            images_url,  = get_image_film_to_id(film["kinopoiskId"])
+            images_url = get_image_film_to_id(film["kinopoiskId"])
             # Проверка на наличие картинок
             if images_url != False:
                 return [film["kinopoiskId"], film["nameOriginal"], film["nameRu"], images_url, genres]
-        except:
+        except Exception as ex:
             a += 1
-            print("Error, no film found. Try again")
+            print(f"Error, no film found. Try again, {ex}")
 
 def get_image_film_to_id(id):
     try:
@@ -44,8 +44,14 @@ def get_image_film_to_id(id):
         body = json.loads(image_list.text)
         images = body['items']
         # Добавил описание фильма если есть
-        if body['description'] is not None:
-            description = body['description']
+        url_film_to_id = f'https://kinopoiskapiunofficial.tech/api/v2.2/films/{id}'
+        # Запрос на API кинопоиска
+        film = requests.get(url_film_to_id, headers={'X-API-KEY': "0abebfe7-7e3b-41ac-94e6-95525f0b018f"})
+        # Сделали словарем
+        film = json.loads(film.text)
+        # добавили описание
+        if film['description'] is not None:
+            description = film['description']
         else:
             description = "Нет Описания"
         # Проверим наличие 3 картинок  фильме
