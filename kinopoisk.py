@@ -9,7 +9,7 @@ import random
 
 def get_film_to_genres(genres):
     a = 0
-    while a > 5:
+    while a < 5:
         try:
             genres_id = bot_info.genres_id[genres]
             rand_page = random.randint(1,2)
